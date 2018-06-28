@@ -5,7 +5,7 @@
     "node_name": "docker2.node",
     "server": true,
     "ui": true,
-    "bootstrap_expect": 1,
+    "bootstrap_expect": 2,
     "bind_addr": "172.16.99.132",
     "client_addr": "172.16.99.132",
     "retry_join": ["172.16.99.131","172.16.99.133"],
