@@ -1,3 +1,4 @@
+```
 {
     "datacenter": "dc1",                // 数据中心名称
     "data_dir": "/var/lib/consul",      // Server 节点数据目录
@@ -15,3 +16,30 @@
     "rejoin_after_leave": true,         // 允许重新加入集群
     "enable_syslog": false              // 是否开启 syslog
 }
+```
+命令
+```
+./consul agent -dev -ui -config-dir /home/xushikuan/sillyhat-consul/node1 -client 0.0.0.0
+./consul agent -ui -config-dir /home/xushikuan/sillyhat-consul/node2 -client 0.0.0.0
+./consul agent -ui -config-dir /home/xushikuan/sillyhat-consul/node3 -client 0.0.0.0
+./consul agent -ui -config-dir /home/xushikuan/sillyhat-consul/node4 -client 0.0.0.0
+```
+
+
+```
+docker run -d -p 9999:9999 -p 9998:9998 -v $PWD/fabio/fabio.properties:/etc/fabio/fabio.properties magiconair/fabio
+registry.consul.register.addr = 172.16.99.131:9998
+registry.consul.addr = 172.16.99.131:8500
+metrics.target = stdout
+
+docker run -d --name=registrator --net=host --volume=/var/run/docker.sock:/tmp/docker.sock gliderlabs/registrator:latest consul://172.16.99.131:8500
+docker run -d -p 8000:8000 -e SERVICE_8000_CHECK_HTTP=/foo/healthcheck  -e SERVICE_8000_NAME=foo -e SERVICE_CHECK_INTERVAL=10s -e SERVICE_CHECK_TIMEOUT=5s -e SERVICE_TAGS=urlprefix-/foo test/foo
+```
+registry.consul.register.addr = 172.16.0.21:9998
+registry.consul.addr = 172.16.0.21:8500
+metrics.target = stdout
+
+
+ssh mozat@172.28.10.55
+ssh -i /Users/xushikuan/Documents/Work/dp.pem ubuntu@10.60.12.251
+ssh -i /Users/xushikuan/Documents/pem/production.pem ubuntu@10.60.12.193
